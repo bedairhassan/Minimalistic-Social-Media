@@ -12,6 +12,7 @@
 		for (let i = 0; i < list.length; i++) {
 			if (list[i] === guest) return true;
 		}
+		return false;
 	};
 
 	db.collection("posts")
@@ -20,6 +21,23 @@
 
 	// is the owner of post friends with the signedInUser
 	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
+
+
+	const fetchIsFriends = (postOwner) => {
+
+		console.log({postOwner,signedInUser,people,inList:InList(postOwner,people)})
+		if (postOwner === signedInUser) {
+			return "YOU";
+		}
+
+		if(InList(postOwner,people) && InList(signedInUser,people)){
+			return 'FRIENDS'
+		}
+
+		return 'Not Friends'
+	};
+
+
 
 	$: {
 		// update isFriends for every post
@@ -32,12 +50,19 @@
 
 		console.log(people);
 
-		
+		if (people.length > 0) {
+			posts = posts.map((post) => {
 
-		// for every post, is the owner of post available in people array
-		// if yes, display friends
-		// if owner of post is signedIn, display YOU
-		// if no, display notFriends
+				// fetchIsFriends = (postOwner, signedInUser,people)
+				let isFriends=fetchIsFriends(post.data().user);
+				console.log(isFriends)
+
+				return {
+					...post,
+					isFriends,
+				};
+			});
+		}
 	}
 </script>
 
@@ -57,6 +82,7 @@
 				post={post.data().post}
 				user={post.data().user}
 				dateCreated={post.data().dateCreated}
+				isFriends={post.data().isFriends}
 			/>
 		{/each}
 	</ul>

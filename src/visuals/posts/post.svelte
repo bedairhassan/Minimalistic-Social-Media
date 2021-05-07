@@ -4,6 +4,7 @@
   export let post;
   export let user;
   export let dateCreated;
+  export let isFriends;
 </script>
 
 
@@ -14,6 +15,7 @@
           
         {dateCreated}
         <br/>Created by {user}
+        <br/>{isFriends}
       </p>
     </div>
   </div>

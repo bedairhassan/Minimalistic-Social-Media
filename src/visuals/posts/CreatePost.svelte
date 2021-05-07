@@ -22,7 +22,7 @@
             <input value={shortDate()} disabled={true} class="form-control" />
         </td>
         <td> <input bind:value={post} /> </td>
-        <td><button on:click={addPost}>Add Post</button></td>
+        <td><button on:click={addPost} class="btn btn-primary">Add Post</button></td>
     </tr>
     <br />
 </div>
