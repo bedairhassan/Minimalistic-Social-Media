@@ -7,6 +7,7 @@
 	let signedInUser = "hassan";
 	let people = [];
 	let fetched = undefined;
+	let byMe=false;
 
 	// TODO: place at tools
 	const InList = (list, guest) => {
@@ -77,8 +78,8 @@
 				};
 			});
 
-			fetched = false;
-			console.log({ fetched });
+			byMe = true;
+			console.log({ fetched,byMe });
 		}
 	}
 </script>
@@ -95,7 +96,8 @@
 	<CreatePost />
 	<ul>
 		{#each posts as post}
-			{#if fetched === false}
+
+			{#if byMe === true }
 				<Post
 					post={post.data().post}
 					user={post.data().user}
