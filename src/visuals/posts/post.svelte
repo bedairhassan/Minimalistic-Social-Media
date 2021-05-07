@@ -1,8 +1,8 @@
 <script>
 
-  let post;
-  let user;
-  let dateCreated;
+  export let post;
+  export let user;
+  export let dateCreated;
 </script>
 
 
