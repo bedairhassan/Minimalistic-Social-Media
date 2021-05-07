@@ -31,8 +31,8 @@
 		// 	people,
 		// 	inList: InList(postOwner, people),
 		// });
-		if (postOwner === signedInUser) {
-			return "YOU";
+		if (postOwner === signedInUser) { // YOU
+			return "";
 		}
 
 		for (let person of people) {
@@ -56,6 +56,14 @@
 			.filter((person) => InList(person.split(","), signedInUser));
 	};
 
+	$:{
+
+		if(posts.length>0){
+
+			posts=posts.map((post) => post.data())
+		}
+	}
+
 	$: {
 		if (people.length > 0) {
 			refurbishPeople();
@@ -67,7 +75,7 @@
 		if (fetched) {
 			posts = posts.map((post) => {
 				// fetchIsFriends = (postOwner, signedInUser,people)
-				let isFriends = fetchIsFriends(post.data().user); // displays YOU,FRIENDS
+				let isFriends = fetchIsFriends(post.user); // displays YOU,FRIENDS
 				console.log(isFriends);
 
 				return {
@@ -96,9 +104,9 @@
 	<ul>
 		{#each posts as post}
 			<Post
-				post={post.data().post}
-				user={post.data().user}
-				dateCreated={post.data().dateCreated}
+				post={post.post}
+				user={post.user}
+				dateCreated={post.dateCreated}
 				isFriends={post.isFriends}
 			/>
 		{/each}
