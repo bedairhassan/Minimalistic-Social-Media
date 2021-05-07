@@ -1,9 +1,21 @@
 <script>
 	import { db } from './JS/firebase';
+
+	let posts=[]
+	db.collection("posts")
+		.orderBy("dateCreated", "asc")
+		.onSnapshot(snap => posts = snap.docs);
 </script>
 
 <main>
-	<h1>Hello !</h1>
+	<h1>Posts</h1>
+
+	<ul>
+		{#each posts as post}
+		<li>{post.data().dateCreated}</li>
+
+		{/each}
+	</ul>
 </main>
 
 <style>
