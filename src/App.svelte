@@ -1,5 +1,6 @@
 <script>
 	import { db } from './JS/firebase';
+	import Post from './visuals/posts/post.svelte'
 
 	let posts=[]
 	db.collection("posts")
@@ -15,6 +16,8 @@
 
 	<ul>
 		{#each posts as post}
+
+		<Post/>
 
 		<div class="card" style="width: 18rem;">
 			<div class="card-body">
