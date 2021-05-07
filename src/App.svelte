@@ -6,6 +6,7 @@
 	let posts = [];
 	let signedInUser = "hassan";
 	let people = [];
+	let fetched=false;
 
 	// TODO: place at tools
 	const InList = (list, guest) => {
@@ -41,7 +42,7 @@
 
 	$: {
 		// update isFriends for every post
-
+		fetched=false
 		people = people
 			.map((person) => person.data())
 			.filter((person) => person.state === "friends")
@@ -62,6 +63,9 @@
 					isFriends,
 				};
 			});
+
+			fetched=true;
+			console.log({fetched})
 		}
 	}
 </script>
@@ -78,20 +82,20 @@
 	<CreatePost />
 	<ul>
 		{#each posts as post}
+		{#if fetched===true}
 			<Post
 				post={post.data().post}
 				user={post.data().user}
 				dateCreated={post.data().dateCreated}
 				isFriends={post.data().isFriends}
 			/>
+		{:else}
+		<h6>waiting</h6>
+		{/if}
 		{/each}
 	</ul>
 
-	<ul>
-		{#each people as person}
-			<li>{person.data().who}</li>
-		{/each}
-	</ul>
+	
 </main>
 
 <style>

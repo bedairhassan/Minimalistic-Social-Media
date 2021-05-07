@@ -1,0 +1,15 @@
+easy,DIFFICULT
+
+
+1. ["mostafa,hassan","hassan,mohammed"]
+
+since hassan is signed in and mohammed is owner of post >> true
+
+however, iteration passes through element[0] too and displays correctly >> false
+
+output:
+for the following 1D array, is there ONE TRUE or not ?
+
+
+
+2. display the return of the text
