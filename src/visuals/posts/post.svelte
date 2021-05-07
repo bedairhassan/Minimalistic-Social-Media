@@ -1,5 +1,6 @@
 <script>
 
+
   export let post;
   export let user;
   export let dateCreated;
@@ -13,7 +14,6 @@
           
         {dateCreated}
         <br/>Created by {user}
-
       </p>
     </div>
   </div>

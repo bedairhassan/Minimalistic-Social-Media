@@ -1,11 +1,44 @@
 <script>
 	import { db } from "./JS/firebase";
-	import Post from "./visuals/posts/post.svelte";
+	import Post from "./visuals/posts/Post.svelte";
+	import CreatePost from "./visuals/posts/CreatePost.svelte";
 
 	let posts = [];
+	let signedInUser = "hassan";
+	let people = [];
+
+	// TODO: place at tools
+	const InList = (list, guest) => {
+		for (let i = 0; i < list.length; i++) {
+			if (list[i] === guest) return true;
+		}
+	};
+
 	db.collection("posts")
 		.orderBy("dateCreated", "asc")
 		.onSnapshot((snap) => (posts = snap.docs));
+
+	// is the owner of post friends with the signedInUser
+	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
+
+	$: {
+		// update isFriends for every post
+
+		people = people
+			.map((person) => person.data())
+			.filter((person) => person.state === "friends")
+			.map((person) => person.who)
+			.filter((person) => InList(person.split(","), signedInUser));
+
+		console.log(people);
+
+		
+
+		// for every post, is the owner of post available in people array
+		// if yes, display friends
+		// if owner of post is signedIn, display YOU
+		// if no, display notFriends
+	}
 </script>
 
 <link
@@ -17,7 +50,7 @@
 
 <main>
 	<h1>Posts</h1>
-
+	<CreatePost />
 	<ul>
 		{#each posts as post}
 			<Post
@@ -25,16 +58,12 @@
 				user={post.data().user}
 				dateCreated={post.data().dateCreated}
 			/>
+		{/each}
+	</ul>
 
-			<div class="card" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title">{post.data().post}</h5>
-					<p class="card-text">
-						{post.data().dateCreated}
-						<br />Created by {post.data().user}
-					</p>
-				</div>
-			</div>
+	<ul>
+		{#each people as person}
+			<li>{person.data().who}</li>
 		{/each}
 	</ul>
 </main>
