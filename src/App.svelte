@@ -6,7 +6,7 @@
 	let posts = [];
 	let signedInUser = "hassan";
 	let people = [];
-	let fetched=false;
+	let fetched = false;
 
 	// TODO: place at tools
 	const InList = (list, guest) => {
@@ -23,26 +23,36 @@
 	// is the owner of post friends with the signedInUser
 	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
 
-
 	const fetchIsFriends = (postOwner) => {
-
-		console.log({postOwner,signedInUser,people,inList:InList(postOwner,people)})
+		console.log({
+			postOwner,
+			signedInUser,
+			people,
+			inList: InList(postOwner, people),
+		});
 		if (postOwner === signedInUser) {
 			return "YOU";
 		}
 
-		if(InList(postOwner,people) && InList(signedInUser,people)){
-			return 'FRIENDS'
+		for (let person of people) {
+
+			person=person.split(",")
+			const c1 = InList(person,postOwner);
+			const c2 = InList(person,signedInUser);
+
+			console.log({ c1, c2 });
+
+			if (c1 && c2) {
+				return "FRIENDS";
+			}
 		}
 
-		return 'Not Friends'
+		return "Not Friends";
 	};
-
-
 
 	$: {
 		// update isFriends for every post
-		fetched=false
+		fetched = false;
 		people = people
 			.map((person) => person.data())
 			.filter((person) => person.state === "friends")
@@ -53,10 +63,9 @@
 
 		if (people.length > 0) {
 			posts = posts.map((post) => {
-
 				// fetchIsFriends = (postOwner, signedInUser,people)
-				let isFriends=fetchIsFriends(post.data().user);
-				console.log(isFriends)
+				let isFriends = fetchIsFriends(post.data().user);
+				console.log(isFriends);
 
 				return {
 					...post,
@@ -64,8 +73,8 @@
 				};
 			});
 
-			fetched=true;
-			console.log({fetched})
+			fetched = true;
+			console.log({ fetched });
 		}
 	}
 </script>
@@ -82,20 +91,18 @@
 	<CreatePost />
 	<ul>
 		{#each posts as post}
-		{#if fetched===true}
-			<Post
-				post={post.data().post}
-				user={post.data().user}
-				dateCreated={post.data().dateCreated}
-				isFriends={post.data().isFriends}
-			/>
-		{:else}
-		<h6>waiting</h6>
-		{/if}
+			{#if fetched === true}
+				<Post
+					post={post.data().post}
+					user={post.data().user}
+					dateCreated={post.data().dateCreated}
+					isFriends={post.data().isFriends}
+				/>
+			{:else}
+				<h6>waiting</h6>
+			{/if}
 		{/each}
 	</ul>
-
-	
 </main>
 
 <style>
