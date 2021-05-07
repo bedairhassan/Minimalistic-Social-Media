@@ -1,2 +1,11 @@
+				isFriends={post.isFriends}
 
-2. display the return of the text
+make it 
+but {...post,
+
+LHS:isFriends}
+
+				isFriends={post.data().isFriends}
+
+
+try identifying left hand side!
