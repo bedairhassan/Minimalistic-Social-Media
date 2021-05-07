@@ -57,7 +57,7 @@
 	};
 
 	$:{
-
+// NEEDED FOR FIREBASE
 		if(posts.length>0){
 
 			posts=posts.map((post) => post.data())
