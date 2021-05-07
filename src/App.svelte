@@ -1,5 +1,5 @@
 <script>
-	// import { db } from './JS/firebase';
+	import { db } from './JS/firebase';
 </script>
 
 <main>
