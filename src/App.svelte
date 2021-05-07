@@ -7,7 +7,7 @@
 	let signedInUser = "hassan";
 	let people = [];
 	let fetched = undefined;
-	let byMe=false;
+	let byMe = false;
 
 	// TODO: place at tools
 	const InList = (list, guest) => {
@@ -57,11 +57,9 @@
 	};
 
 	$: {
-
-		fetched=false;
 		if (people.length > 0) {
 			refurbishPeople();
-			fetched=true;
+			fetched = true;
 		}
 	}
 
@@ -79,7 +77,8 @@
 			});
 
 			byMe = true;
-			console.log({ fetched,byMe });
+			console.log({ fetched, byMe });
+			console.log(posts)
 		}
 	}
 </script>
@@ -96,17 +95,12 @@
 	<CreatePost />
 	<ul>
 		{#each posts as post}
-
-			{#if byMe === true }
-				<Post
-					post={post.data().post}
-					user={post.data().user}
-					dateCreated={post.data().dateCreated}
-					isFriends={post.data().isFriends}
-				/>
-			{:else}
-				<h6>waiting</h6>
-			{/if}
+			<Post
+				post={post.data().post}
+				user={post.data().user}
+				dateCreated={post.data().dateCreated}
+				isFriends={post.isFriends}
+			/>
 		{/each}
 	</ul>
 </main>
