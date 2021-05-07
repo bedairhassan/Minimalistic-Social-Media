@@ -7,12 +7,26 @@
 		.onSnapshot(snap => posts = snap.docs);
 </script>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
 <main>
 	<h1>Posts</h1>
 
 	<ul>
 		{#each posts as post}
-		<li>{post.data().dateCreated}</li>
+
+		<div class="card" style="width: 18rem;">
+			<div class="card-body">
+			  <h5 class="card-title">{post.data().post}</h5>
+			  <p class="card-text">
+				  
+				{post.data().dateCreated}
+				<br/>Created by {post.data().user}
+
+			  </p>
+			</div>
+		  </div>
 
 		{/each}
 	</ul>
