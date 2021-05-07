@@ -6,7 +6,7 @@
 	let posts = [];
 	let signedInUser = "hassan";
 	let people = [];
-	let fetched = false;
+	let fetched = undefined;
 
 	// TODO: place at tools
 	const InList = (list, guest) => {
@@ -24,23 +24,20 @@
 	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
 
 	const fetchIsFriends = (postOwner) => {
-		console.log({
-			postOwner,
-			signedInUser,
-			people,
-			inList: InList(postOwner, people),
-		});
+		// console.log({
+		// 	postOwner,
+		// 	signedInUser,
+		// 	people,
+		// 	inList: InList(postOwner, people),
+		// });
 		if (postOwner === signedInUser) {
 			return "YOU";
 		}
 
 		for (let person of people) {
-
-			person=person.split(",")
-			const c1 = InList(person,postOwner);
-			const c2 = InList(person,signedInUser);
-
-			console.log({ c1, c2 });
+			person = person.split(",");
+			const c1 = InList(person, postOwner);
+			const c2 = InList(person, signedInUser);
 
 			if (c1 && c2) {
 				return "FRIENDS";
@@ -50,21 +47,28 @@
 		return "Not Friends";
 	};
 
-	$: {
-		// update isFriends for every post
-		fetched = false;
+	const refurbishPeople = () => {
 		people = people
 			.map((person) => person.data())
 			.filter((person) => person.state === "friends")
 			.map((person) => person.who)
 			.filter((person) => InList(person.split(","), signedInUser));
+	};
 
-		console.log(people);
+	$: {
 
+		fetched=false;
 		if (people.length > 0) {
+			refurbishPeople();
+			fetched=true;
+		}
+	}
+
+	$: {
+		if (fetched) {
 			posts = posts.map((post) => {
 				// fetchIsFriends = (postOwner, signedInUser,people)
-				let isFriends = fetchIsFriends(post.data().user);
+				let isFriends = fetchIsFriends(post.data().user); // displays YOU,FRIENDS
 				console.log(isFriends);
 
 				return {
@@ -73,7 +77,7 @@
 				};
 			});
 
-			fetched = true;
+			fetched = false;
 			console.log({ fetched });
 		}
 	}
@@ -91,7 +95,7 @@
 	<CreatePost />
 	<ul>
 		{#each posts as post}
-			{#if fetched === true}
+			{#if fetched === false}
 				<Post
 					post={post.data().post}
 					user={post.data().user}
