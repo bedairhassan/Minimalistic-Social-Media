@@ -1,4 +1,6 @@
 <script>
+  import AddFriend from "./AddFriend.svelte";
+
   export let post;
   export let user;
   export let dateCreated;
@@ -11,7 +13,11 @@
     <p class="card-text">
       {dateCreated}
       <br />Created by {user}
-      <br />{isFriends}
+      <!-- <br />{isFriends} -->
+      <br />
+      {#if isFriends === "Not Friends"}
+        <AddFriend whoToAdd={user} />
+      {/if}
     </p>
   </div>
 </div>
