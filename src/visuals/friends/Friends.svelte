@@ -4,16 +4,18 @@
 
     let signedInUser = "hassan";
 
-    let Pending = (array, signedInUser) => {
+ 
+
+    let Pending = (array, signedInUser,state) => {
         array = array
-            .filter((item) => item.state === "pending") // filter by pending
+            .filter((item) => item.state === state) // filter by pending
             .map((item) => item.who) // array will only contain strings no objects.
             .filter((item) => item.split(",")[1] === signedInUser); // 'mohammed,hassan' , since hasasn is signed in, retrieve item!
 
         return array;
     };
 
-    let friends = [],friendsPending=[];
+    let friends = [],friendsPending=[],friendsAvailable=[];
 
     db.collection("friends").onSnapshot((snap) => {
         console.log(snap);
@@ -29,9 +31,10 @@
 
 
             // available 
+            // friendsAvailable = Available(friends,signedInUser,"friends")
 
             // pending
-            friendsPending = Pending(friends, signedInUser);
+            friendsPending = Pending(friends, signedInUser,"pending");
             console.log(friends);
 
             friendsPending = friendsPending.map((friend) => friend.split(",")[0]);
