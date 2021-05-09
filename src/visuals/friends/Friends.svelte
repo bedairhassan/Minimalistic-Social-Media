@@ -6,7 +6,7 @@
     import FriendAccepted from "./FriendAccepted.svelte";
     import { modifyFriends, fetchOther, isAvailable } from "../../JS/friends";
 
-    import FriendsPending from './FriendsPending.svelte'
+    import FriendsPending from "./FriendsPending.svelte";
 
     let signedInUser = "hassan";
 
@@ -42,30 +42,10 @@
             console.log(friendsAvailable);
         }
     }
-
-    $: {
-        // NEEDED FOR FIREBASE
-        if (friends.length > 0) {
-            // pending
-            friendsPending = modifyFriends(friends, signedInUser, "pending");
-            // console.log(friendsPending);
-            friendsPending = friendsPending.filter(
-                (item) => item.split(",")[1] === signedInUser
-            ); // 'mohammed,hassan' , since hasasn is signed in, retrieve item!
-
-            friendsPending = friendsPending.map(
-                (friend) => friend.split(",")[0]
-            );
-            // console.log(friendsPending);
-        }
-    }
 </script>
 
 <table class="table">
-
-    <FriendsPending friendsPending={friendsPending}/>
-
-   
+    <FriendsPending {friendsPending} {friends} />
 
     <h1>Friends</h1>
     {#each friendsAvailable as friend}
