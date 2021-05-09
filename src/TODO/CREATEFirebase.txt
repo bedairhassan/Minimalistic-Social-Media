@@ -1,0 +1,1 @@
+create firebase-tools which has retrieve data || push data to array
