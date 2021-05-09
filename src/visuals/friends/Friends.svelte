@@ -1,11 +1,12 @@
 <script>
-
     import { db } from "../../JS/firebase";
 
     import FriendsAvailable from "./Accepted/FriendsAvailable.svelte";
     import FriendsPending from "./Pending/FriendsPending.svelte";
 
-    let signedInUser = "hassan";
+    import signedIn from "../../store/signedIn";
+    let currentSignedIn;
+    $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 
     let friends = [],
         friendsPending = [],
@@ -25,8 +26,12 @@
 </script>
 
 <table class="table">
-    <FriendsPending {friendsPending} {friends} />
+    {#if !currentSignedIn}
+        Not Signed In
+    {:else}
+        <FriendsPending {friendsPending} {friends} />
 
-    <FriendsAvailable {friends} {friendsAvailable} />
+        <FriendsAvailable {friends} {friendsAvailable} />
+    {/if}
 </table>
 <body />

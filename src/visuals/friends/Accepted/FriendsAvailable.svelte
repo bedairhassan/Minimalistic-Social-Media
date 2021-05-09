@@ -5,20 +5,23 @@
     // import FriendPending from "./Pending/FriendPending.svelte";
     import FriendAccepted from './FriendAccepted.svelte'
 
-    let signedInUser = "hassan";
+    let currentSignedIn;
+    import signedIn from "../../../store/signedIn";
+    $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
+
 
     $: {
         // NEEDED FOR FIREBASE
         if (friends.length > 0) {
             // available
-            friendsAvailable = modifyFriends(friends, signedInUser, "friends");
+            friendsAvailable = modifyFriends(friends, "friends");
             // console.log(friendsAvailable);
             friendsAvailable = friendsAvailable.filter((item) =>
-                isAvailable(item, signedInUser)
+                isAvailable(item, currentSignedIn)
             );
             // console.log(friendsAvailable);
             friendsAvailable = friendsAvailable.map((item) =>
-                fetchOther(item, signedInUser)
+                fetchOther(item, currentSignedIn)
             );
             // console.log(friendsAvailable);
         }

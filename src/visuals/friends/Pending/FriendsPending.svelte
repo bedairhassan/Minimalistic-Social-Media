@@ -1,19 +1,22 @@
 <script>
-
-    export let friendsPending,friends
+    export let friendsPending, friends;
     import { modifyFriends } from "../../../JS/friends";
 
-    import FriendPending from './FriendPending.svelte'
-    let signedInUser = "hassan";
+    import FriendPending from "./FriendPending.svelte";
+    let currentSignedIn;
+
+    import signedIn from "../../../store/signedIn";
+    $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 
     $: {
+        
         // NEEDED FOR FIREBASE
         if (friends.length > 0) {
             // pending
-            friendsPending = modifyFriends(friends, signedInUser, "pending");
+            friendsPending = modifyFriends(friends,  "pending");
             // console.log(friendsPending);
             friendsPending = friendsPending.filter(
-                (item) => item.split(",")[1] === signedInUser
+                (item) => item.split(",")[1] === currentSignedIn
             ); // 'mohammed,hassan' , since hasasn is signed in, retrieve item!
 
             friendsPending = friendsPending.map(
@@ -23,7 +26,6 @@
         }
     }
 </script>
-
 
 <h1>Pending</h1>
 {#each friendsPending as friend}

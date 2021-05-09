@@ -9,5 +9,5 @@ import CookiePage from './visuals/DEV/Cookie.svelte'
 
 
 <CookiePage /> 
-<!-- <Friends/> -->
+<Friends/>
 <!-- <Posts/> -->

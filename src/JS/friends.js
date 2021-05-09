@@ -1,4 +1,4 @@
-let modifyFriends = (array, signedInUser, state) => {
+let modifyFriends = (array,  state) => {
     array = array
         .filter((item) => item.state === state) // filter by pending
         .map((item) => item.who); // array will only contain strings no objects.
