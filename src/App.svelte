@@ -2,13 +2,12 @@
 
 import Posts from './visuals/posts/Posts.svelte'
 import Friends from './visuals/friends/Friends.svelte'
+import CookiePage from './visuals/DEV/Cookie.svelte'
 
-
-let signedInUser='hassan'
 
 </script>
 
-Signed in is {signedInUser}
 
-<Friends/>
-<Posts/>
+<CookiePage /> 
+<!-- <Friends/> -->
+<!-- <Posts/> -->
