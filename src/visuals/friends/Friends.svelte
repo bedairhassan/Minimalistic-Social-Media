@@ -19,6 +19,7 @@
         friendsPending = [],
         friendsAvailable = [];
 
+
     db.collection("friends").onSnapshot((snap) => {
         // console.log(snap);
         friends = snap.docs;
@@ -41,10 +42,16 @@
     };
 
     $: {
-        // NEEDED FOR FIREBASE
+
         if (friends.length > 0) {
             friends = friends.map((post) => post.data());
             console.log(friends);
+        }
+    }
+
+    $: {
+        // NEEDED FOR FIREBASE
+        if (friends.length > 0) {
 
             // available
             friendsAvailable = modifyFriends(friends, signedInUser, "friends");
@@ -57,6 +64,12 @@
                 fetchOther(item, signedInUser)
             );
             console.log(friendsAvailable);
+        }
+    }
+
+    $: {
+        // NEEDED FOR FIREBASE
+        if (friends.length > 0) {
 
             // pending
             friendsPending = modifyFriends(friends, signedInUser, "pending");
