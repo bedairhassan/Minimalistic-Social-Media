@@ -4,7 +4,6 @@
 	import CreatePost from "./CreatePost.svelte";
 
 	let posts = [];
-	let signedInUser = "hassan";
 	let people = [];
 	let fetched = undefined;
 	let byMe = false;
@@ -21,24 +20,25 @@
 		.orderBy("dateCreated", "asc")
 		.onSnapshot((snap) => (posts = snap.docs));
 
-	// is the owner of post friends with the signedInUser
+	// is the owner of post friends with the currentSignedIn
 	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
 
 	const fetchIsFriends = (postOwner) => {
 		// console.log({
 		// 	postOwner,
-		// 	signedInUser,
+		// 	currentSignedIn,
 		// 	people,
 		// 	inList: InList(postOwner, people),
 		// });
-		if (postOwner === signedInUser) { // YOU
+		if (postOwner === currentSignedIn) {
+			// YOU
 			return "";
 		}
 
 		for (let person of people) {
 			person = person.split(",");
 			const c1 = InList(person, postOwner);
-			const c2 = InList(person, signedInUser);
+			const c2 = InList(person, currentSignedIn);
 
 			if (c1 && c2) {
 				return "FRIENDS";
@@ -53,14 +53,13 @@
 			.map((person) => person.data())
 			.filter((person) => person.state === "friends")
 			.map((person) => person.who)
-			.filter((person) => InList(person.split(","), signedInUser));
+			.filter((person) => InList(person.split(","), currentSignedIn));
 	};
 
-	$:{
-// NEEDED FOR FIREBASE
-		if(posts.length>0){
-
-			posts=posts.map((post) => post.data())
+	$: {
+		// NEEDED FOR FIREBASE
+		if (posts.length > 0) {
+			posts = posts.map((post) => post.data());
 		}
 	}
 
@@ -74,7 +73,7 @@
 	$: {
 		if (fetched) {
 			posts = posts.map((post) => {
-				// fetchIsFriends = (postOwner, signedInUser,people)
+				// fetchIsFriends = (postOwner, currentSignedIn,people)
 				let isFriends = fetchIsFriends(post.user); // displays YOU,FRIENDS
 				//console.log(isFriends);
 
@@ -89,6 +88,12 @@
 			// console.log(posts)
 		}
 	}
+
+
+	import signedIn from "../../store/signedIn";
+    let currentSignedIn;
+    $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
+
 </script>
 
 <link
@@ -99,18 +104,22 @@
 />
 
 <main>
-	<h1>Posts</h1>
-	<CreatePost />
-	<ul>
-		{#each posts as post}
-			<Post
-				post={post.post}
-				user={post.user}
-				dateCreated={post.dateCreated}
-				isFriends={post.isFriends}
-			/>
-		{/each}
-	</ul>
+	{#if !currentSignedIn}
+		Not Signed In
+	{:else}
+		<h1>Posts</h1>
+		<CreatePost />
+		<ul>
+			{#each posts as post}
+				<Post
+					post={post.post}
+					user={post.user}
+					dateCreated={post.dateCreated}
+					isFriends={post.isFriends}
+				/>
+			{/each}
+		</ul>
+	{/if}
 </main>
 
 <style>
