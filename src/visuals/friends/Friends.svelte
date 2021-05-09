@@ -6,6 +6,8 @@
     import FriendAccepted from "./FriendAccepted.svelte";
     import { modifyFriends, fetchOther, isAvailable } from "../../JS/friends";
 
+    import FriendsPending from './FriendsPending.svelte'
+
     let signedInUser = "hassan";
 
     let friends = [],
@@ -60,10 +62,10 @@
 </script>
 
 <table class="table">
-    <h1>Pending</h1>
-    {#each friendsPending as friend}
-        <FriendPending futureFriend={friend} />
-    {/each}
+
+    <FriendsPending friendsPending={friendsPending}/>
+
+   
 
     <h1>Friends</h1>
     {#each friendsAvailable as friend}
