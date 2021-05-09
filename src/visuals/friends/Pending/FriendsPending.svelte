@@ -1,7 +1,7 @@
 <script>
 
     export let friendsPending,friends
-    import { modifyFriends } from "../../JS/friends";
+    import { modifyFriends } from "../../../JS/friends";
 
     import FriendPending from './FriendPending.svelte'
     let signedInUser = "hassan";

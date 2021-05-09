@@ -2,12 +2,9 @@
     import { sign } from "crypto";
 
     import { db } from "../../JS/firebase";
-    import FriendPending from "./FriendPending.svelte";
-    import FriendAccepted from "./FriendAccepted.svelte";
-    import FriendsAvailable from "./FriendsAvailable.svelte";
-    import { modifyFriends, fetchOther, isAvailable } from "../../JS/friends";
 
-    import FriendsPending from "./FriendsPending.svelte";
+    import FriendsAvailable from "./Accepted/FriendsAvailable.svelte";
+    import FriendsPending from "./Pending/FriendsPending.svelte";
 
     let signedInUser = "hassan";
 
@@ -22,8 +19,8 @@
 
     $: {
         if (friends.length > 0) {
+            // firebase tingz => basically, I didn't want all the other attributes that I won't use!
             friends = friends.map((post) => post.data());
-            console.log(friends);
         }
     }
 </script>
