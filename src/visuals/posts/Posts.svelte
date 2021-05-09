@@ -76,7 +76,7 @@
 			posts = posts.map((post) => {
 				// fetchIsFriends = (postOwner, signedInUser,people)
 				let isFriends = fetchIsFriends(post.user); // displays YOU,FRIENDS
-				console.log(isFriends);
+				//console.log(isFriends);
 
 				return {
 					...post,
@@ -85,8 +85,8 @@
 			});
 
 			byMe = true;
-			console.log({ fetched, byMe });
-			console.log(posts)
+			// console.log({ fetched, byMe });
+			// console.log(posts)
 		}
 	}
 </script>
