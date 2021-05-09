@@ -13,7 +13,7 @@
         return array;
     };
 
-    let friends = [];
+    let friends = [],friendsPending=[];
 
     db.collection("friends").onSnapshot((snap) => {
         console.log(snap);
@@ -31,17 +31,17 @@
             // available 
 
             // pending
-            friends = Pending(friends, signedInUser);
+            friendsPending = Pending(friends, signedInUser);
             console.log(friends);
 
-            friends = friends.map((friend) => friend.split(",")[0]);
+            friendsPending = friendsPending.map((friend) => friend.split(",")[0]);
             console.log(friends);
         }
     }
 </script>
 
 <table class="table">
-    {#each friends as friend}
+    {#each friendsPending as friend}
         <FriendPending futureFriend={friend} />
     {/each}
 </table>
