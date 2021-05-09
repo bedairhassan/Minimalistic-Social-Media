@@ -1,18 +1,18 @@
 
 <script>
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
+import signedIn from '../../store/signedIn'
 
-const set_cookie = who=>bake_cookie('signedin',who)
+const set_cookie = currentSignedIn=>signedIn.update(lastSignedIn=>currentSignedIn)
 
+let currentSignedIn=''
 
-if (process.browser) {
-    const myCookieValue = getCookie("myCookie");
-}
+$:signedIn.subscribe(lastSignedIn=>currentSignedIn=lastSignedIn)
 
 </script>
 
-I am a cookie.
+I am a cookie 🍪.
 
-<h6>Signed in as {getCookie('signedin')}</h6>
+<h6>Signed in as {currentSignedIn}</h6>
 <button on:click={()=>set_cookie('hassan')}>🍪Hassan</button>
 <button on:click={()=>set_cookie('mostafa')}>🍪Mostafa</button>

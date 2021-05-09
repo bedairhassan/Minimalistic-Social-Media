@@ -1,5 +1,4 @@
 <script>
-    import { sign } from "crypto";
 
     import { db } from "../../JS/firebase";
 
