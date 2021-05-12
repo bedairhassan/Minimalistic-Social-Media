@@ -17,17 +17,19 @@
         // NEEDED FOR FIREBASE
         if (friends.length > 0) {
             // available
-            friendsAvailable = modifyFriends(friends, "friends");
+            friendsAvailable = friends.filter(friend=>friend.state==='friends')
             // console.log(friendsAvailable);
             friendsAvailable = friendsAvailable.filter((item) =>
-                isAvailable(item, currentSignedIn)
+                isAvailable(item.who, currentSignedIn)
             );
             // console.log(friendsAvailable);
-            friendsAvailable = friendsAvailable.map((item) =>
-                fetchOther(item, currentSignedIn)
-            );
+            // friendsAvailable = friendsAvailable.map((item) =>
+            //     fetchOther(item, currentSignedIn)
+            // );
         }
     }
+
+    $: console.log(friendsAvailable)
 </script>
 
 <h1>Friends</h1>
