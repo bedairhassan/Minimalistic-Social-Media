@@ -6,7 +6,15 @@
     export let whoToAdd;
 
     // variables for current page
-    let signedInUser = "hassan"; // read cookie!
+    // let currentSignedIn = "hassan"; // read cookie!
+
+
+    import signedIn from '../../store/signedIn'
+    let currentSignedIn=''
+$:signedIn.subscribe(lastSignedIn=>currentSignedIn=lastSignedIn)
+
+
+
 
     // reusable
     const CREATEFirebase = (source, object) =>
@@ -15,14 +23,13 @@
     const addFriend = () => {
         
         const object = {
-            who: `${signedInUser},${whoToAdd}`, // issuedFriendRequest,ToDecideWhetherToAcceptOrReject
+            who: `${currentSignedIn},${whoToAdd}`, // issuedFriendRequest,ToDecideWhetherToAcceptOrReject
             state: "pending",
         };
-
-        console.log(object)
 
         CREATEFirebase("friends", object);
     };
 </script>
 
+<!-- {currentSignedIn} -->
 <button class="btn btn-warning" on:click={addFriend}>Add a Friend</button>

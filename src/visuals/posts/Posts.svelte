@@ -33,7 +33,7 @@
 		// });
 		if (postOwner === currentSignedIn) {
 			// YOU
-			return "";
+			return "YOU";
 		}
 
 		for (let person of people) {
