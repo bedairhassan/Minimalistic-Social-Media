@@ -15,7 +15,13 @@
       <br />Created by {user}
       <!-- <br />{isFriends} -->
       <br />
-      {#if isFriends === "Not Friends"}
+        {#if isFriends==='friends'}
+        FRIENDS
+        {:else if isFriends==='pending'}
+        PENDING
+        {:else if isFriends==='you'}
+        YOU
+        {:else}
         <AddFriend whoToAdd={user} />
       {/if}
     </p>

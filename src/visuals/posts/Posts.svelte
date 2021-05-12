@@ -3,7 +3,6 @@
 	import Post from "./Post.svelte";
 	import CreatePost from "./CreatePost.svelte";
 
-
 	let posts = [];
 	let people = [];
 	let fetched = undefined;
@@ -25,36 +24,36 @@
 	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
 
 	const fetchIsFriends = (postOwner) => {
-		// console.log({
-		// 	postOwner,
-		// 	currentSignedIn,
-		// 	people,
-		// 	inList: InList(postOwner, people),
-		// });
+
+// you,friends,pending,error
+
 		if (postOwner === currentSignedIn) {
 			// YOU
-			return "YOU";
+			return "you";
 		}
 
-		for (let person of people) {
-			person = person.split(",");
-			const c1 = InList(person, postOwner);
-			const c2 = InList(person, currentSignedIn);
+		for (const person of people) {
+			const fetchother = fetchOther(person.who, currentSignedIn);
 
-			if (c1 && c2) {
-				return "FRIENDS";
+			if (fetchother === postOwner) {
+				// console.table({ person });
+
+				return person.state; // friends,pending
 			}
+
+			// const InList = InList()
 		}
 
-		return "Not Friends";
+		return "error";
 	};
 
 	const refurbishPeople = () => {
 		people = people
 			.map((person) => person.data())
-			.filter((person) => person.state === "friends")
-			.map((person) => person.who)
-			.filter((person) => InList(person.split(","), currentSignedIn));
+			// .filter((person) => person.state === "friends")
+			// .map((person) => person.who)
+			.filter((person) => InList(person.who.split(","), currentSignedIn)); // fetch ONLY currentSignedIn's friends
+		console.table(people);
 	};
 
 	$: {
@@ -76,7 +75,7 @@
 			posts = posts.map((post) => {
 				// fetchIsFriends = (postOwner, currentSignedIn,people)
 				let isFriends = fetchIsFriends(post.user); // displays YOU,FRIENDS
-				//console.log(isFriends);
+				// console.log({isFriends});
 
 				return {
 					...post,
@@ -90,11 +89,10 @@
 		}
 	}
 
-
 	import signedIn from "../../store/signedIn";
-    let currentSignedIn;
-    $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
-
+	import { fetchOther } from "../../JS/friends";
+	let currentSignedIn;
+	$: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 </script>
 
 <link
@@ -108,7 +106,7 @@
 	{#if !currentSignedIn}
 		Not Signed In
 	{:else}
-	{currentSignedIn}
+		{currentSignedIn}
 		<h1>Posts</h1>
 		<CreatePost />
 		<ul>
