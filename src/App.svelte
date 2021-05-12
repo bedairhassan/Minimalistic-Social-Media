@@ -6,6 +6,8 @@
     import CookiePage from "./visuals/DEV/Cookie.svelte";
 
     export let url = "";
+
+    console.log(new Date()+' ')
 </script>
 
 <link

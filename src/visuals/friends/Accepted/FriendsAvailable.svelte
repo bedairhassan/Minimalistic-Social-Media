@@ -1,14 +1,17 @@
 <script>
     export let friendsAvailable, friends;
-    import { modifyFriends, fetchOther, isAvailable } from "../../../JS/friends";
+    import {
+        modifyFriends,
+        fetchOther,
+        isAvailable,
+    } from "../../../JS/friends";
 
     // import FriendPending from "./Pending/FriendPending.svelte";
-    import FriendAccepted from './FriendAccepted.svelte'
+    import FriendAccepted from "./FriendAccepted.svelte";
 
     let currentSignedIn;
     import signedIn from "../../../store/signedIn";
     $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
-
 
     $: {
         // NEEDED FOR FIREBASE
@@ -23,12 +26,16 @@
             friendsAvailable = friendsAvailable.map((item) =>
                 fetchOther(item, currentSignedIn)
             );
-            // console.log(friendsAvailable);
         }
     }
 </script>
 
 <h1>Friends</h1>
-{#each friendsAvailable as friend}
-    <FriendAccepted {friend} />
-{/each}
+
+{#if friendsAvailable.length > 0}
+    {#each friendsAvailable as friend}
+        <FriendAccepted {friend} />
+    {/each}
+{:else}
+    No Friends Available.
+{/if}
