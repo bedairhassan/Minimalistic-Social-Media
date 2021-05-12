@@ -29,4 +29,5 @@ $:signedIn.subscribe(lastSignedIn=>currentSignedIn=lastSignedIn)
 <h6>Signed in as {currentSignedIn}</h6>
 <button on:click={()=>set_cookie()} class="btn btn-danger">Sign Out</button>
 <button on:click={()=>set_cookie('hassan')}>🍪Hassan</button>
+<button on:click={()=>set_cookie('hossam')}>🍪Hossam</button>
 <button on:click={()=>set_cookie('mostafa')}>🍪Mostafa</button>

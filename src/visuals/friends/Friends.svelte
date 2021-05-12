@@ -12,15 +12,14 @@
         friendsPending = [],
         friendsAvailable = [];
 
-    db.collection("friends").onSnapshot((snap) => {
-        // console.log(snap);
-        friends = snap.docs;
-    });
+    db.collection("friends").onSnapshot((snap) => friends = snap.docs);
 
     $: {
         if (friends.length > 0) {
             // firebase tingz => basically, I didn't want all the other attributes that I won't use!
             friends = friends.map((post) => post.data());
+
+            console.table(friends)
         }
     }
 </script>

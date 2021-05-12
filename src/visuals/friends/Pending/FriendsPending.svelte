@@ -8,20 +8,21 @@
     import signedIn from "../../../store/signedIn";
     $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 
-    $: {
-        // NEEDED FOR FIREBASE
-        if (friends.length > 0) {
-            // pending
-            friendsPending = modifyFriends(friends, "pending");
-            // console.log(friendsPending);
-            friendsPending = friendsPending.filter(
-                (item) => item.split(",")[1] === currentSignedIn
-            ); // 'mohammed,hassan' , since hasasn is signed in, retrieve item!
+    const receivedFriendRequest = (item) => item.who.split(",")[1];
 
-            friendsPending = friendsPending.map(
-                (friend) => friend.split(",")[0]
+    $: {
+        if (friends.length > 0) {
+            friendsPending = friends.filter(
+                (friend) => friend.state === "pending"
+            ); 
+
+            console.table(friendsPending);
+
+            friendsPending = friendsPending.filter(
+                (friend) => receivedFriendRequest(friend) === currentSignedIn
             );
-            // console.log(friendsPending);
+
+            console.table(friendsPending);
         }
     }
 </script>
@@ -30,7 +31,8 @@
 
 {#if friendsPending.length > 0}
     {#each friendsPending as friend}
-        <FriendPending futureFriend={friend} />
+        <!-- friend.who.split(',')[0] ; futureFriend -->
+        <FriendPending {friend} />
     {/each}
 {:else}
     No Pending Friends Available.
