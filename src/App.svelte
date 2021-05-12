@@ -5,6 +5,9 @@
     import Friends from "./visuals/friends/Friends.svelte";
     import CookiePage from "./visuals/DEV/Cookie.svelte";
 
+
+    import NavBarLoggedIn from './visuals/extras/NavBarLoggedIn.svelte'
+
     export let url = "";
 
     console.log(new Date()+' ')
@@ -37,6 +40,9 @@
             </li>
         </ul>
     </nav>
+
+    <NavBarLoggedIn />
+    
 
     <div>
         <Route path="friends" component={Friends} />

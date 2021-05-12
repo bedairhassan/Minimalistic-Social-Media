@@ -26,12 +26,24 @@ $:signedIn.subscribe(lastSignedIn=>currentSignedIn=lastSignedIn)
 
 </script>
 
-<h6>Signed in as {currentSignedIn}</h6>
-<button on:click={()=>set_cookie()} class="btn btn-danger">Sign Out</button>
+<!-- <h6>Signed in as {currentSignedIn}</h6>
+<button on:click={()=>set_cookie()} class="btn btn-danger">Sign Out</button> -->
 
-<button on:click={()=>set_cookie('hassan')}>🍪Hassan</button>
+<br/>
 
-<br/><br/><br/><br/>
-<button on:click={()=>set_cookie('ali')}>🍪Ali</button>
-<button on:click={()=>set_cookie('hossam')}>🍪Hossam</button>
-<button on:click={()=>set_cookie('mostafa')}>🍪Mostafa</button>
+<br/><br/>
+
+
+
+<tr>
+    <td><button on:click={()=>set_cookie('hassan')}>🍪Hassan</button>
+    </td>
+    <td><button on:click={()=>set_cookie('ali')}>🍪Ali</button>
+    </td>
+    <td><button on:click={()=>set_cookie('hossam')}>🍪Hossam</button>
+    </td>
+    <td><button on:click={()=>set_cookie('mostafa')}>🍪Mostafa</button>
+    </td>
+    <!-- <tr></tr> -->
+    <!-- <tr></tr> -->
+</tr>
