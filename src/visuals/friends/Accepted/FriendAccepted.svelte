@@ -11,18 +11,10 @@
     let friendToRemove;
     $: friendToRemove = fetchOther(friend.who, currentSignedIn);
 
+    // $: console.table(friend.who);
 
-$:console.table(friend.who)
-
-
-
-// db.collection("friends")
-//             .doc(docId)
-//             .set({
-//                 ...friend, // same object but only change
-//                 state: "friends", // only change state
-//             });
-    const removeFriend = () => db.collection('friends').doc(friend.who).delete();
+    const removeFriend = () =>
+        db.collection("friends").doc(friend.who).delete();
 </script>
 
 <tr>

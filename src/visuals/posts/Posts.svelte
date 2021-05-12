@@ -2,19 +2,14 @@
 	import { db } from "../../JS/firebase";
 	import Post from "./Post.svelte";
 	import CreatePost from "./CreatePost.svelte";
+	import signedIn from "../../store/signedIn";
+	import { fetchOther, InList } from "../../JS/friends";
 
 	let posts = [];
 	let people = [];
 	let fetched = undefined;
-	let byMe = false;
 
 	// TODO: place at tools
-	const InList = (list, guest) => {
-		for (let i = 0; i < list.length; i++) {
-			if (list[i] === guest) return true;
-		}
-		return false;
-	};
 
 	db.collection("posts")
 		.orderBy("dateCreated", "asc")
@@ -24,9 +19,6 @@
 	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
 
 	const fetchIsFriends = (postOwner) => {
-
-// you,friends,pending,error
-
 		if (postOwner === currentSignedIn) {
 			// YOU
 			return "you";
@@ -36,12 +28,8 @@
 			const fetchother = fetchOther(person.who, currentSignedIn);
 
 			if (fetchother === postOwner) {
-				// console.table({ person });
-
 				return person.state; // friends,pending
 			}
-
-			// const InList = InList()
 		}
 
 		return "error";
@@ -50,14 +38,10 @@
 	const refurbishPeople = () => {
 		people = people
 			.map((person) => person.data())
-			// .filter((person) => person.state === "friends")
-			// .map((person) => person.who)
 			.filter((person) => InList(person.who.split(","), currentSignedIn)); // fetch ONLY currentSignedIn's friends
-		console.table(people);
 	};
 
 	$: {
-		// NEEDED FOR FIREBASE
 		if (posts.length > 0) {
 			posts = posts.map((post) => post.data());
 		}
@@ -82,15 +66,9 @@
 					isFriends,
 				};
 			});
-
-			byMe = true;
-			// console.log({ fetched, byMe });
-			// console.log(posts)
 		}
 	}
 
-	import signedIn from "../../store/signedIn";
-	import { fetchOther } from "../../JS/friends";
 	let currentSignedIn;
 	$: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 </script>
