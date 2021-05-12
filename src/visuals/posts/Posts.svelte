@@ -3,6 +3,7 @@
 	import Post from "./Post.svelte";
 	import CreatePost from "./CreatePost.svelte";
 
+
 	let posts = [];
 	let people = [];
 	let fetched = undefined;
@@ -107,6 +108,7 @@
 	{#if !currentSignedIn}
 		Not Signed In
 	{:else}
+	{currentSignedIn}
 		<h1>Posts</h1>
 		<CreatePost />
 		<ul>
