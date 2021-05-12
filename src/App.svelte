@@ -19,19 +19,19 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/">
-                    <Link to="/">Home</Link>
-                </a>
+                <!-- <a class="nav-link" href="/"> -->
+                    <Link to="/">Home |   </Link>
+                <!-- </a> -->
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">
-                    <Link to="friends">Friends</Link>
-                </a>
+                <!-- <a class="nav-link" href="/"> -->
+                    <Link to="friends">|   Friends |</Link>
+                <!-- </a> -->
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">
-                    <Link to="posts">Posts</Link>
-                </a>
+                <!-- <a class="nav-link" href="/"> -->
+                    <Link to="posts">|   Posts</Link>
+                <!-- </a> -->
             </li>
         </ul>
     </nav>
