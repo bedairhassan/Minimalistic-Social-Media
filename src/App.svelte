@@ -5,12 +5,15 @@
     import Friends from "./visuals/friends/Friends.svelte";
     import CookiePage from "./visuals/DEV/Cookie.svelte";
 
+    // import Login from './visuals/loginpage/Login.svelte'
 
-    import NavBarLoggedIn from './visuals/extras/NavBarLoggedIn.svelte'
+    import Login from "./visuals/loginnpage/Login.svelte";
+
+    import NavBarLoggedIn from "./visuals/extras/NavBarLoggedIn.svelte";
 
     export let url = "";
 
-    console.log(new Date()+' ')
+    console.log(new Date() + " ");
 </script>
 
 <link
@@ -25,32 +28,28 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <!-- <a class="nav-link" href="/"> -->
-                    <Link to="/">Home |   </Link>
+                <Link to="/">Home |</Link>
                 <!-- </a> -->
             </li>
             <li class="nav-item">
                 <!-- <a class="nav-link" href="/"> -->
-                    <Link to="friends">|   Friends |</Link>
+                <Link to="friends">| Friends |</Link>
                 <!-- </a> -->
             </li>
             <li class="nav-item">
                 <!-- <a class="nav-link" href="/"> -->
-                    <Link to="posts">|   Posts</Link>
+                <Link to="posts">| Posts</Link>
                 <!-- </a> -->
             </li>
         </ul>
     </nav>
 
     <NavBarLoggedIn />
-    
 
     <div>
-        <Route path="friends" component={Friends} />
-        <Route path="posts" component={Posts} />
-        <Route path="/"><CookiePage /></Route>
+        <Route path="friends"><Friends /></Route>
+        <Route path="posts"><Posts /></Route>
+        <Route path="/login"><Login /></Route>
+        <Route path="/" component={CookiePage} />
     </div>
 </Router>
-
-<!-- <CookiePage /> 
-<Friends/>
-<Posts/> -->

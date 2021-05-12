@@ -1,49 +1,20 @@
-
-
-
-
 <script>
-// import signedIn from '../../store/signedIn' 
-// $:signedIn.subscribe(lastSignedIn=>currentSignedIn=lastSignedIn)
+    import signedIn from "../../store/signedIn";
 
+    let currentSignedIn;
+    const set_cookie = (currentSignedIn) => {
+        if (!currentSignedIn) {
+            signedIn.update((lastSignedIn) => null)
+            return;
+        }
 
-import signedIn from '../../store/signedIn'
-
-const set_cookie = currentSignedIn=>{
-
-    if(!currentSignedIn){
-        signedIn.update(lastSignedIn=>{
-            return null;
-        })    
-    }
-
-    signedIn.update(lastSignedIn=>currentSignedIn)
-}
-
-let currentSignedIn=''
-
-$:signedIn.subscribe(lastSignedIn=>currentSignedIn=lastSignedIn)
-
+        signedIn.update((lastSignedIn) => (currentSignedIn = lastSignedIn));
+    };
 </script>
 
-<!-- <h6>Signed in as {currentSignedIn}</h6>
-<button on:click={()=>set_cookie()} class="btn btn-danger">Sign Out</button> -->
-
-<br/>
-
-<br/><br/>
-
-
-
 <tr>
-    <td><button on:click={()=>set_cookie('hassan')}>🍪Hassan</button>
-    </td>
-    <td><button on:click={()=>set_cookie('ali')}>🍪Ali</button>
-    </td>
-    <td><button on:click={()=>set_cookie('hossam')}>🍪Hossam</button>
-    </td>
-    <td><button on:click={()=>set_cookie('mostafa')}>🍪Mostafa</button>
-    </td>
-    <!-- <tr></tr> -->
-    <!-- <tr></tr> -->
+    <td><button on:click={() => set_cookie("hassan")}>🍪Hassan</button> </td>
+    <td><button on:click={() => set_cookie("ali")}>🍪Ali</button> </td>
+    <td><button on:click={() => set_cookie("hossam")}>🍪Hossam</button> </td>
+    <td><button on:click={() => set_cookie("mostafa")}>🍪Mostafa</button> </td>
 </tr>

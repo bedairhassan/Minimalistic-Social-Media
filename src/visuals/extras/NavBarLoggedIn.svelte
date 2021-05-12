@@ -15,8 +15,7 @@
         signedIn.update((lastSignedIn) => currentSignedIn);
     };
 
-    let currentSignedIn = "";
-
+    let currentSignedIn;
     $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 </script>
 
@@ -40,7 +39,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <Link to="SignIn">| SignIn |</Link>
+                <Link to="login">| SignIn |</Link>
             </li>
         </ul>
     </nav>
