@@ -3,11 +3,11 @@
 
     import Posts from "./visuals/posts/Posts.svelte";
     import Friends from "./visuals/friends/Friends.svelte";
-    import CookiePage from "./visuals/DEV/Cookie.svelte";
+    // import CookiePage from "./visuals/DEV/Cookie.svelte";
 
     // import Login from './visuals/loginpage/Login.svelte'
 
-    import Login from "./visuals/loginnpage/Login.svelte";
+    import Login from "./visuals/extras/SignIn.svelte";
 
     import NavBarLoggedIn from "./visuals/extras/NavBarLoggedIn.svelte";
 
@@ -50,6 +50,5 @@
         <Route path="friends"><Friends /></Route>
         <Route path="posts"><Posts /></Route>
         <Route path="/login"><Login /></Route>
-        <Route path="/" component={CookiePage} />
     </div>
 </Router>
