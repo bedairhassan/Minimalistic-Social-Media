@@ -9,8 +9,8 @@
 
     let username, password;
 
-    let status,
-        show = false;
+    // let status;
+    let show = false;
 
     const updatedWhoIsSignedIn = (username) =>
         signedIn.update((lastSignedIn) => username);
@@ -32,7 +32,7 @@
         db.collection("sign").onSnapshot((snap) => {
             if (!username) {
                 // if user didn't even interact with username field
-                alert("username or password is incorrect");
+                alert("username is undefined");
                 return;
             }
 
@@ -42,25 +42,37 @@
 
             if (!password) {
                 // if user didn't even interact with passwords field
-                alert("username or password is incorrect");
+                alert("password is undefined");
                 return;
             }
 
-            let isPasswordCorrect = snap[0].password === password;
+            const userExistsAtDatabase = (snap) => snap.length > 0;
+
+            if (!userExistsAtDatabase(snap)) {
+                show = "0";
+                return;
+            }
+
+            console.log({
+                length: snap.length,
+                array: snap,
+            });
+
+            let isPasswordCorrect = snap.filter(
+                (item) => item.password === password
+            );
             isPasswordCorrect = isPasswordCorrect.length > 0;
+
+            // let isPasswordCorrect = snap[0].password === password;
+            // isPasswordCorrect = isPasswordCorrect.length > 0;
 
             if (!isPasswordCorrect) {
                 alert("username or password is incorrect");
                 return;
             }
 
-            const userExistsAtDatabase = (snap) => snap.length > 0;
-
             if (userExistsAtDatabase(snap)) {
                 updatedWhoIsSignedIn(username);
-            } else {
-                status = "Do you want to create new account? ";
-                show = "0";
             }
         });
     };
@@ -84,7 +96,7 @@
 
 <div>
     {#if show === "0"}
-        <br />{status}
+        <br />Do you want to sign up and sign in ?
         <button on:click={signup_signin}>Sign Up & Sign In</button>
     {:else if show === "1"}
         Signing up.. Signing in.. Please standby
