@@ -2,9 +2,10 @@
     import { db } from "../../JS/firebase";
 
     import { shortDate } from "../../JS/tools";
-    import signedIn from "../../store/signedIn";
+    import SI from "../../store/signedIn";
     let post;
-    let signedInUser = "hossam";
+    let signedInUser;
+    SI.subscribe((last) => (signedInUser = last));
 
     // reusable
     const CREATEFirebase = (source, object) =>
