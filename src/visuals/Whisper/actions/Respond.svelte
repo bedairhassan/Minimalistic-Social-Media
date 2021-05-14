@@ -16,24 +16,26 @@
         show = !show;
 
         // hides input while sending data to firebase
-        if (!show) {
-            // previously
-            const context = whisper.message;
-            const receiver = whisper.sender;
+        if (!show && message) {
+            if (message !== "") {
+                // previously
+                const context = whisper.message;
+                const receiver = whisper.sender;
 
-            const sender = currentSignedIn;
-            const id = shortDate() + sender;
+                const sender = currentSignedIn;
+                const id = shortDate() + sender;
 
-            db.collection("whisper").doc(id).set({
-                context,
-                receiver,
-                sender,
-                id,
-                message,
-            });
+                db.collection("whisper").doc(id).set({
+                    context,
+                    receiver,
+                    sender,
+                    id,
+                    message,
+                });
 
-            // reset
-            message='';
+                // reset
+                message = "";
+            }
         }
     };
 </script>

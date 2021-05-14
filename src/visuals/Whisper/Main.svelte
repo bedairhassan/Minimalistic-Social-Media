@@ -35,14 +35,7 @@
         <h1>WHISPER PAGE</h1>
         {#if array}
             <table class="table">
-                <tr>
-                    <th scope="col">context</th>
-                    <th scope="col">sender</th>
-                    <th scope="col">message</th>
-                    <th scope="col">Dismiss</th>
-                    <th scope="col">Respond</th>
-                </tr>
-
+              
                 {#each array as whisper}
                     <Whisper {whisper} />
                 {/each}

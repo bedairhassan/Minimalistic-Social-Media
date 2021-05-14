@@ -7,9 +7,9 @@
 
 <div>
     <tr>
-        <td>{whisper.context}</td>
-        <td>{whisper.sender}</td>
-        <td>{whisper.message}</td>
+        <td>CONTEXT >> {whisper.context}</td>
+        <td>SENDER >> {whisper.sender}</td>
+        <td>MESSAGE >> {whisper.message}</td>
         <td><Dismiss id={whisper.id} /> </td>
         <td><Respond {whisper} /></td>
     </tr>
