@@ -13,11 +13,20 @@
 
 	db.collection("posts")
 		.orderBy("dateCreated", "asc")
-		.onSnapshot((snap) => (posts = snap.docs));
+		.onSnapshot((snap) => {
+			posts = snap.docs.map((post) => post.data());
+		});
 
 	// is the owner of post friends with the currentSignedIn
-	db.collection("friends").onSnapshot((snap) => (people = snap.docs));
+	db.collection("friends").onSnapshot((snap) => {
+		// fetch ONLY currentSignedIn's friends
+		people = snap.docs
+			.map((person) => person.data())
+			.filter((person) => InList(person.who.split(","), currentSignedIn));
+	});
 
+	// while passing down data {post}, I need to render {pending,friends,YOU,ADD FRIEND}
+	// for ex. a user sees a good post, he adds person.
 	const fetchIsFriends = (postOwner) => {
 		if (postOwner === currentSignedIn) {
 			// YOU
@@ -35,40 +44,16 @@
 		return "error";
 	};
 
-	const refurbishPeople = () => {
-		people = people
-			.map((person) => person.data())
-			.filter((person) => InList(person.who.split(","), currentSignedIn)); // fetch ONLY currentSignedIn's friends
-	};
-
-	$: {
-		if (posts.length > 0) {
-			posts = posts.map((post) => post.data());
-		}
-	}
-
 	$: {
 		if (people.length > 0) {
-			refurbishPeople();
-			fetched = true;
-		}
-	}
-
-	$: {
-		if (fetched) {
 			posts = posts.map((post) => {
-				// fetchIsFriends = (postOwner, currentSignedIn,people)
 				let isFriends = fetchIsFriends(post.user); // displays YOU,FRIENDS
-				// console.log({isFriends});
-				console.log(post.id)
-
 
 				return {
 					...post,
 					isFriends,
 				};
 			});
-
 		}
 	}
 
@@ -102,4 +87,3 @@
 		</ul>
 	{/if}
 </main>
-
