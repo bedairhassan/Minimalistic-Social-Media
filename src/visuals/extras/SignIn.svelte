@@ -52,10 +52,10 @@
                 return;
             }
 
-            console.log({
-                length: snap.length,
-                array: snap,
-            });
+            // console.log({
+            //     length: snap.length,
+            //     array: snap,
+            // });
 
             let isPasswordCorrect = snap.filter(
                 (item) => item.password === password

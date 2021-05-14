@@ -1,10 +1,7 @@
 <script>
-import { db } from "../../../JS/firebase";
+    import { db } from "../../../JS/firebase";
 
-    import { fetchOther } from "../../../JS/friends";
     import signedIn from "../../../store/signedIn";
-    // import AddFriend from "../../posts/AddFriend.svelte";
-// db
 
     export let friend;
 
@@ -18,13 +15,10 @@ import { db } from "../../../JS/firebase";
             });
     };
 
-    // signedIn;
-    // import signedIn from "../../store/signedIn";
     let currentSignedIn;
     $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 
     let futureFriend;
-    $: futureFriend = fetchOther(friend.who, currentSignedIn); // BACKAGAIN
 </script>
 
 <tr>

@@ -1,18 +1,22 @@
 import { writable } from 'svelte/store';
 
+const WHISPER = 'whisper'
+const FRIEND = 'friend'
+const POST = 'post'
+const LOGIN = 'login'
+
 const route = writable(
 
     {
-        array: [
-            'whisper',
-            'friend',
-            'post',
-        ], ref: {
-
-            WHISPER: "whisper",
-            FRIEND: "friend",
-            POST: 'post',
-            LOGIN: 'login'
+        render: [
+            WHISPER,
+            FRIEND,
+            POST
+        ], routes: {
+            WHISPER,
+            FRIEND,
+            POST,
+            LOGIN
         }
     }
     // obj:{

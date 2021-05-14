@@ -29,7 +29,7 @@
         }
     }
 
-    $: console.log(friendsAvailable)
+    // $: console.log(friendsAvailable)
 </script>
 
 <h1>Friends</h1>

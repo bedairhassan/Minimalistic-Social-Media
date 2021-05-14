@@ -2,7 +2,7 @@
     import { Link } from "svelte-routing";
 
     export let route;
-    console.log(route)
+    // console.log(route)
 </script>
 
 <li class="nav-item">

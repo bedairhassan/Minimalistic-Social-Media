@@ -19,22 +19,19 @@
 
     $: {
         if (fetch) {
-            array = array.map((item) => item.data());
-            console.log(array);
-
-            array = array.filter((item) => item.receiver === currentSignedIn);
-            console.log(array);
-
-            array = array.sort((a, b) => a.sender > b.sender);
+            array = array
+                .map((item) => item.data())
+                .filter((item) => item.receiver === currentSignedIn)
+                .sort((a, b) => a.sender > b.sender);
             console.log(array);
         }
     }
 </script>
 
 <div>
-    <h1>WHISPER PAGE</h1>
-
     {#if currentSignedIn}
+        <h1>WHISPER PAGE</h1>
+
         {#if array}
             {#each array as whisper}
                 <Whisper {whisper} />
@@ -42,5 +39,7 @@
         {:else}
             No Data
         {/if}
+    {:else}
+        Not Signed In
     {/if}
 </div>
