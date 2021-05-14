@@ -28,18 +28,23 @@
 
         // if show is true, user is typing
         // if show is false, user is done with typing
-        if (!show) {
-            const id = `${shortDate()},${currentSignedIn}`;
+        if (!show && message) {
+            if (message !== "") {
+                const id = `${shortDate()},${currentSignedIn}`;
 
-            // RET1
-            db.collection("whisper")
-                .doc(id)
-                .set({
-                    sender: currentSignedIn,
-                    receiver: fetchOther(friend.who, currentSignedIn),
-                    message,
-                    context: "👋",id
-                });
+                // RET1
+                db.collection("whisper")
+                    .doc(id)
+                    .set({
+                        sender: currentSignedIn,
+                        receiver: fetchOther(friend.who, currentSignedIn),
+                        message,
+                        context: "👋",
+                        id,
+                    });
+
+                message = "";
+            }
         }
     };
 </script>
