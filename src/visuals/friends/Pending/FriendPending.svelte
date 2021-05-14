@@ -5,14 +5,26 @@
 
     export let friend;
 
+    const personNotSendingRequestToHimself = (friend) => {
+        friend = friend.who.split(",");
+        let first = friend[0];
+        let second = friend[1];
+
+        console.table({ first, second, cond: !(first === second) });
+
+        return !(first === second); // hassan,mohammed : true // hassan,hassan : false
+    };
+
     const addFriend = () => {
-        let docId = friend.who;
-        db.collection("friends")
-            .doc(docId)
-            .set({
-                ...friend, // same object but only change
-                state: "friends", // only change state
-            });
+        if (personNotSendingRequestToHimself(friend)) {
+            let docId = friend.who;
+            db.collection("friends")
+                .doc(docId)
+                .set({
+                    ...friend, // same object but only change
+                    state: "friends", // only change state
+                });
+        }
     };
 
     let currentSignedIn;

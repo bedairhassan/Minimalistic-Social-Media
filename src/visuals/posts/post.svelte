@@ -3,9 +3,12 @@
   import RemovePost from "./RemovePost.svelte";
 
   export let post;
+  export let id;
   export let user;
   export let dateCreated;
   export let isFriends;
+
+  console.log(isFriends);
 </script>
 
 <div class="card" style="width: 18rem;">
@@ -16,13 +19,13 @@
       <br />Created by {user}
       <!-- <br />{isFriends} -->
       <br />
-      {#if isFriends === "friends"}
+      {#if isFriends === "you"}
+        <!-- YOU     -->
+        <RemovePost {id} />
+      {:else if isFriends === "friends"}
         FRIENDS
       {:else if isFriends === "pending"}
         PENDING
-      {:else if isFriends === "you"}
-        <!-- YOU     -->
-        <RemovePost id={post.id} />
       {:else}
         <AddFriend whoToAdd={user} />
       {/if}

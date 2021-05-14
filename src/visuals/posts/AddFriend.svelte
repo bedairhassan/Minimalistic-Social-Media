@@ -16,6 +16,11 @@
         // db.collection(object.who).add(object); // returnBACK
 
     const addFriend = () => {
+
+        if(currentSignedIn===whoToAdd){ // you can't add yourself
+            return; 
+        }
+
         const object = {
             who: `${currentSignedIn},${whoToAdd}`, 
             state: "pending",

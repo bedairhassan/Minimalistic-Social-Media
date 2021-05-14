@@ -44,8 +44,11 @@
 		return "error";
 	};
 
+	// main-component; keep people at posts
+	// sub-component; ask server for posts.
+
 	$: {
-		if (people.length > 0) {
+		if (people.length > 0) { // main component ! !! ! !  !!!!!
 			posts = posts.map((post) => {
 				let isFriends = fetchIsFriends(post.user); // displays YOU,FRIENDS
 
@@ -54,6 +57,8 @@
 					isFriends,
 				};
 			});
+			// console.table(posts)
+			fetched = true;
 		}
 	}
 
@@ -61,29 +66,25 @@
 	$: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 </script>
 
-<link
-	rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous"
-/>
-
 <main>
 	{#if !currentSignedIn}
 		Not Signed In
 	{:else}
-		{currentSignedIn}
+		<!-- {currentSignedIn} -->
 		<h1>Posts</h1>
 		<CreatePost />
 		<ul>
-			{#each posts as post}
-				<Post
-					post={post.post}
-					user={post.user}
-					dateCreated={post.dateCreated}
-					isFriends={post.isFriends}
-				/>
-			{/each}
+			{#if fetched}
+				{#each posts as post}
+					<Post
+						post={post.post}
+						user={post.user}
+						id={post.id}
+						dateCreated={post.dateCreated}
+						isFriends={post.isFriends}
+					/>
+				{/each}
+			{/if}
 		</ul>
 	{/if}
 </main>
