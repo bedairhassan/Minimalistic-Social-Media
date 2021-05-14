@@ -2,6 +2,7 @@
     import { db } from "../../JS/firebase";
 
     import { shortDate } from "../../JS/tools";
+    import signedIn from "../../store/signedIn";
     let post;
     let signedInUser = "hossam";
 
@@ -9,11 +10,22 @@
     const CREATEFirebase = (source, object) =>
         db.collection(source).add(object);
 
-    const addPost = () => CREATEFirebase("posts", {
-        dateCreated:shortDate(),
-        post:post,
-        user:signedInUser
-    });
+    const addPost = () => {
+        const id = shortDate() + signedInUser;
+
+        db.collection("posts").doc(id).set({
+            dateCreated: shortDate(),
+            id,
+            post: post,
+            user: signedInUser,
+        });
+
+        // CREATEFirebase("posts", {
+        //     dateCreated: shortDate(),
+        //     post: post,
+        //     user: signedInUser,
+        // });
+    };
 </script>
 
 <div class="center">
@@ -22,7 +34,10 @@
             <input value={shortDate()} disabled={true} class="form-control" />
         </td>
         <td> <input bind:value={post} /> </td>
-        <td><button on:click={addPost} class="btn btn-primary">Add Post</button></td>
+        <td
+            ><button on:click={addPost} class="btn btn-primary">Add Post</button
+            ></td
+        >
     </tr>
     <br />
 </div>

@@ -1,5 +1,5 @@
 <script>
-    import { db } from "../../JS/firebase";
+    import { db } from "../../../JS/firebase";
 
     export let id; // id is date && user
 

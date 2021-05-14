@@ -19,11 +19,13 @@
 
     $: {
         if (fetch) {
-            array = array
-                .map((item) => item.data())
-                .filter((item) => item.receiver === currentSignedIn)
-                .sort((a, b) => a.sender > b.sender);
-            console.log(array);
+            if (array) {
+                array = array
+                    .map((item) => item.data())
+                    .filter((item) => item.receiver === currentSignedIn)
+                    .sort((a, b) => a.sender > b.sender);
+                console.log(array);
+            }
         }
     }
 </script>
@@ -31,11 +33,20 @@
 <div>
     {#if currentSignedIn}
         <h1>WHISPER PAGE</h1>
-
         {#if array}
-            {#each array as whisper}
-                <Whisper {whisper} />
-            {/each}
+            <table class="table">
+                <tr>
+                    <th scope="col">context</th>
+                    <th scope="col">sender</th>
+                    <th scope="col">message</th>
+                    <th scope="col">Dismiss</th>
+                    <th scope="col">Respond</th>
+                </tr>
+
+                {#each array as whisper}
+                    <Whisper {whisper} />
+                {/each}
+            </table>
         {:else}
             No Data
         {/if}
