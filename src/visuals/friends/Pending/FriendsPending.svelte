@@ -1,4 +1,6 @@
 <script>
+    // PRINT FROM HERE
+
     export let friendsPending, friends;
     import { modifyFriends } from "../../../JS/friends";
 
@@ -9,17 +11,19 @@
     $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 
     const receivedFriendRequest = (item) => item.who.split(",")[1];
+    const iReceivedFriendRequest = (friend) =>
+        receivedFriendRequest(friend) === currentSignedIn;
 
     $: {
         if (friends.length > 0) {
-            friendsPending = friends.filter(
-                (friend) => friend.state === "pending"
-            ); 
+            friendsPending = friendsPending.filter((friend) =>
+                iReceivedFriendRequest(friend)
+            );
 
             console.table(friendsPending);
 
-            friendsPending = friendsPending.filter(
-                (friend) => receivedFriendRequest(friend) === currentSignedIn
+            friendsPending = friends.filter(
+                (friend) => friend.state === "pending"
             );
 
             console.table(friendsPending);
