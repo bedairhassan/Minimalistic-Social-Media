@@ -8,8 +8,6 @@
     SI.subscribe((last) => (signedInUser = last));
 
     // reusable
-    const CREATEFirebase = (source, object) =>
-        db.collection(source).add(object);
 
     const addPost = () => {
         const id = shortDate() + signedInUser;
