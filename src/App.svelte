@@ -1,6 +1,8 @@
 <script>
     import { Router, Link, Route } from "svelte-routing";
+    import Whisper from "./visuals/Whisper/Main.svelte";
 
+    import Routes from "./visuals/Routes/Routes.svelte";
     import Posts from "./visuals/posts/Posts.svelte";
     import Friends from "./visuals/friends/Friends.svelte";
     // import CookiePage from "./visuals/DEV/Cookie.svelte";
@@ -10,10 +12,15 @@
     import Login from "./visuals/extras/SignIn.svelte";
 
     import NavBarLoggedIn from "./visuals/extras/NavBarLoggedIn.svelte";
+    // import Routes from "./store/routeStore";
 
     export let url = "";
 
     console.log(new Date() + " ");
+
+    import Routes_ from "./store/routeStore";
+    let route;
+    $: Routes_.subscribe((OBJ) => (route = OBJ.ref));
 </script>
 
 <link
@@ -24,31 +31,14 @@
 />
 
 <Router {url}>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <!-- <a class="nav-link" href="/"> -->
-                <Link to="/">Home |</Link>
-                <!-- </a> -->
-            </li>
-            <li class="nav-item">
-                <!-- <a class="nav-link" href="/"> -->
-                <Link to="friends">| Friends |</Link>
-                <!-- </a> -->
-            </li>
-            <li class="nav-item">
-                <!-- <a class="nav-link" href="/"> -->
-                <Link to="posts">| Posts</Link>
-                <!-- </a> -->
-            </li>
-        </ul>
-    </nav>
+    <Routes />
 
     <NavBarLoggedIn />
 
     <div>
-        <Route path="friends"><Friends /></Route>
-        <Route path="posts"><Posts /></Route>
-        <Route path="/login"><Login /></Route>
+        <Route path={route.WHISPER}><Whisper /></Route>
+        <Route path={route.FRIEND}><Friends /></Route>
+        <Route path={route.POST}><Posts /></Route>
+        <Route path={route.LOGIN}><Login /></Route>
     </div>
 </Router>

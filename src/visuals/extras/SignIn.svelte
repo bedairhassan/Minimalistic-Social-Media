@@ -1,9 +1,8 @@
 <script>
-    import { set_input_value } from "svelte/internal";
-
     import { db } from "../../JS/firebase";
 
     import signedIn from "../../store/signedIn";
+    import CookiePage from "../DEV/CookiePage.svelte";
 
     // db
 
@@ -101,6 +100,10 @@
     {:else if show === "1"}
         Signing up.. Signing in.. Please standby
     {/if}
+</div>
+
+<div>
+    <CookiePage />
 </div>
 
 <!-- TODO: if clicks button, show user created?!?!?!?  -->
