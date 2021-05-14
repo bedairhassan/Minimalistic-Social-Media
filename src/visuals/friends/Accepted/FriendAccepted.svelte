@@ -3,6 +3,7 @@
 
     // fetches the person who isn't signed in
     import { fetchOther } from "../../../JS/friends";
+    import { shortDate } from "../../../JS/tools";
 
     import signedIn from "../../../store/signedIn";
 
@@ -28,13 +29,17 @@
         // if show is true, user is typing
         // if show is false, user is done with typing
         if (!show) {
+            const id = `${shortDate()},${currentSignedIn}`;
+
             // RET1
-            db.collection("whisper").add({
-                sender: currentSignedIn,
-                receiver: fetchOther(friend.who, currentSignedIn),
-                message,
-                context: "👋",
-            });
+            db.collection("whisper")
+                .doc(id)
+                .set({
+                    sender: currentSignedIn,
+                    receiver: fetchOther(friend.who, currentSignedIn),
+                    message,
+                    context: "👋",id
+                });
         }
     };
 </script>
