@@ -1,5 +1,6 @@
 <script>
   import AddFriend from "./AddFriend.svelte";
+  import RemovePost from "./RemovePost.svelte";
 
   export let post;
   export let user;
@@ -15,15 +16,19 @@
       <br />Created by {user}
       <!-- <br />{isFriends} -->
       <br />
-        {#if isFriends==='friends'}
+      {#if isFriends === "friends"}
         FRIENDS
-        {:else if isFriends==='pending'}
+      {:else if isFriends === "pending"}
         PENDING
-        {:else if isFriends==='you'}
-        YOU
-        {:else}
+      {:else if isFriends === "you"}
+        <!-- YOU     -->
+        <RemovePost id={post.id} />
+      {:else}
         <AddFriend whoToAdd={user} />
       {/if}
     </p>
+    <!-- {#if isFriends==='you'}
+    <RemovePost id={post.id}/>
+    {/if} -->
   </div>
 </div>

@@ -60,12 +60,15 @@
 				// fetchIsFriends = (postOwner, currentSignedIn,people)
 				let isFriends = fetchIsFriends(post.user); // displays YOU,FRIENDS
 				// console.log({isFriends});
+				console.log(post.id)
+
 
 				return {
 					...post,
 					isFriends,
 				};
 			});
+
 		}
 	}
 
