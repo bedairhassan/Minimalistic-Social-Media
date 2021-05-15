@@ -11,4 +11,4 @@
     };
 </script>
 
-<button on:click={delUser}>Delete User</button>
+<button on:click={delUser} class="btn btn-danger">Delete User</button>

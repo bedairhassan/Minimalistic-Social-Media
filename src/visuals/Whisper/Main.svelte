@@ -24,24 +24,27 @@
                     .map((item) => item.data())
                     .filter((item) => item.receiver === currentSignedIn)
                     .sort((a, b) => a.sender > b.sender);
-                console.log(array);
+                // console.log(array);
             }
         }
     }
 </script>
 
-<div>
+<div align="center">
     {#if currentSignedIn}
         <h1>WHISPER PAGE</h1>
-        {#if array}
-            <table class="table">
-              
-                {#each array as whisper}
-                    <Whisper {whisper} />
-                {/each}
-            </table>
+        {#if fetch}
+            {#if array}
+                <table class="table">
+                    {#each array as whisper}
+                        <Whisper {whisper} />
+                    {/each}
+                </table>
+            {:else}
+                No Data
+            {/if}
         {:else}
-            No Data
+            Loading...
         {/if}
     {:else}
         Not Signed In
