@@ -89,21 +89,45 @@
     $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 </script>
 
+<link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+/>
+
+
 <h1>SignIn</h1>
 
 {#if !currentSignedIn}
-    <div>
-        <input
-            type="text"
-            placeholder="enter your username"
-            bind:value={username}
-        />
-        <input
-            type="password"
-            placeholder="enter your password"
-            bind:value={password}
-        />
-        <button on:click={fetch}>SignIn</button>
+    <div align="center">
+        <tr>
+            <td>Username</td>
+            <td
+                ><input
+                    type="text"
+                    placeholder="enter your username"
+                    bind:value={username}
+                /></td
+            >
+        </tr>
+
+        <tr>
+            <td>Password</td>
+            <td
+                ><input
+                    type="password"
+                    placeholder="enter your password"
+                    bind:value={password}
+                /></td
+            >
+        </tr>
+
+        <tr>
+            <td colspan="2"><button 
+                class="btn btn-primary"
+                on:click={fetch}>SignIn</button></td>
+        </tr>
     </div>
 
     <div>
@@ -119,6 +143,7 @@
 {/if}
 
 <div>
+    <h1>Developer View</h1>
     <CookiePage />
 </div>
 
