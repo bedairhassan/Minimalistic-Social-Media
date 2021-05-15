@@ -14,6 +14,13 @@
     const updatedWhoIsSignedIn = (username) =>
         signedIn.update((lastSignedIn) => username);
 
+    const then = () => {
+        console.log("trying to redirect to localhost:5000");
+
+        // window.location.href = 'localhost:5000';
+        window.location.href = "posts";
+    };
+
     const signup_signin = () => {
         // sign up immediately creates account by pushing data to server
         db.collection("sign").doc(username).set({
@@ -25,6 +32,7 @@
 
         // sign in
         updatedWhoIsSignedIn(username);
+        then();
     };
 
     const fetch = () => {
@@ -72,35 +80,43 @@
 
             if (userExistsAtDatabase(snap)) {
                 updatedWhoIsSignedIn(username);
+                then();
             }
         });
     };
+
+    let currentSignedIn;
+    $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 </script>
 
 <h1>SignIn</h1>
 
-<div>
-    <input
-        type="text"
-        placeholder="enter your username"
-        bind:value={username}
-    />
-    <input
-        type="password"
-        placeholder="enter your password"
-        bind:value={password}
-    />
-    <button on:click={fetch}>SignIn</button>
-</div>
+{#if !currentSignedIn}
+    <div>
+        <input
+            type="text"
+            placeholder="enter your username"
+            bind:value={username}
+        />
+        <input
+            type="password"
+            placeholder="enter your password"
+            bind:value={password}
+        />
+        <button on:click={fetch}>SignIn</button>
+    </div>
 
-<div>
-    {#if show === "0"}
-        <br />Do you want to sign up and sign in ?
-        <button on:click={signup_signin}>Sign Up & Sign In</button>
-    {:else if show === "1"}
-        Signing up.. Signing in.. Please standby
-    {/if}
-</div>
+    <div>
+        {#if show === "0"}
+            <br />Do you want to sign up and sign in ?
+            <button on:click={signup_signin}>Sign Up & Sign In</button>
+        {:else if show === "1"}
+            Signing up.. Signing in.. Please standby
+        {/if}
+    </div>
+{:else}
+    You are already signed in;
+{/if}
 
 <div>
     <CookiePage />
