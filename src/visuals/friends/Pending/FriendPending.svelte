@@ -34,9 +34,25 @@
     // let futureFriend;
 </script>
 
-<tr>
-    <td>{fetchOther(friend.who, currentSignedIn)}</td>
-    <td>
-        <button class="btn btn-success" on:click={addFriend}>Add Friend</button>
-    </td>
-</tr>
+<!-- hassan,mohammed  ; received is mohammed -->
+<!-- mohammed,hassan  ; received is hassan -->
+
+{#if friend.who.split(",")[1] === currentSignedIn}
+    <tr>
+        <td>{fetchOther(friend.who, currentSignedIn)}</td>
+        <td>
+            <button class="btn btn-success" on:click={addFriend}
+                >Add Friend</button
+            >
+        </td>
+    </tr>
+{:else}
+    <tr>
+        <td
+            >You are currently waiting for {fetchOther(
+                friend.who,
+                currentSignedIn
+            )} to accept your friend request.</td
+        >
+    </tr>
+{/if}
