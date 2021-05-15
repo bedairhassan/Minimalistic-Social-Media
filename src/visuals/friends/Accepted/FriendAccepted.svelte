@@ -57,7 +57,7 @@
         ></td
     >
     <td>
-        <button on:click={whisperFUN}>Whisper</button>
+        <button on:click={whisperFUN} class="btn btn-primary">Whisper</button>
     </td>
     {#if show}
         <td

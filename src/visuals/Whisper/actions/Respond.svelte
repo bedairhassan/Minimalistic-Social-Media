@@ -41,7 +41,7 @@
 </script>
 
 <div>
-    <button on:click={respond}>Respond</button>
+    <button on:click={respond} class="btn btn-primary">Respond</button>
 
     {#if show}
         <input bind:value={message} />
