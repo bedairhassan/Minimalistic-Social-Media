@@ -1,6 +1,7 @@
 <script>
     import { db } from "../../../JS/firebase";
     import DeleteButton from "./DeleteButton.svelte";
+    import MarkButton from "./MarkButton.svelte";
 
     let users,
         fetched = false;
@@ -27,8 +28,11 @@ I can delete.
 
     {#if fetched}
         {#each users as user}
-            {user}
-            <DeleteButton {user} />
+            <tr>
+                <td>{user}</td>
+                <td><DeleteButton {user} /></td>
+            </tr>
+            <!-- <MarkButton {user}/> -->
         {/each}
     {:else}
         Loading...

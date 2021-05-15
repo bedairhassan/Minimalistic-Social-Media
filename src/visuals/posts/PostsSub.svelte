@@ -15,11 +15,11 @@
     db.collection("posts")
         .orderBy("dateCreated", "asc")
         .onSnapshot((snap) => {
-            posts = snap.docs.map((post) => post.data());
+            // posts = snap.docs.map((post) => post.data());
 
             //             if (people) { // remove this?
             if (people) {
-                posts = posts.map((post) => {
+                posts = snap.docs.map((post) => post.data()).map((post) => {
                     let isFriends = fetchIsFriends(
                         post.user,
                         currentSignedIn,
@@ -33,6 +33,9 @@
                 });
                 // console.table(posts)
                 fetched = true;
+            }
+            else{ // will this break? 
+                fetched=false;
             }
         });
 </script>
@@ -48,5 +51,7 @@
                 isFriends={post.isFriends}
             />
         {/each}
+    {:else}
+        <h1>Loading...</h1>
     {/if}
 </ul>
