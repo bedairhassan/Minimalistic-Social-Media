@@ -3,7 +3,13 @@
 
     import signedIn from "../../store/signedIn";
 
-    const signout = () => signedIn.update(() => null);
+    const signout = () => {
+
+        signedIn.update(() => null)
+        setTimeout(() => {
+            location.reload()
+        }, 500);
+    };
 
     let currentSignedIn;
 
@@ -21,7 +27,7 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <button on:click={() => signout()} class="btn btn-danger"
+                <button on:click={signout} class="btn btn-danger"
                     >Sign Out</button
                 >
             </li>
