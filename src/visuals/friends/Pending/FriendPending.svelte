@@ -1,5 +1,6 @@
 <script>
     import { db } from "../../../JS/firebase";
+    import { fetchOther } from "../../../JS/friends";
 
     import signedIn from "../../../store/signedIn";
 
@@ -30,11 +31,11 @@
     let currentSignedIn;
     $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 
-    let futureFriend;
+    // let futureFriend;
 </script>
 
 <tr>
-    <td>{futureFriend}</td>
+    <td>{fetchOther(friend.who, currentSignedIn)}</td>
     <td>
         <button class="btn btn-success" on:click={addFriend}>Add Friend</button>
     </td>

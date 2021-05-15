@@ -1,9 +1,8 @@
 <script>
     import { Router, Link, Route } from "svelte-routing";
 
-    import Routes from "./visuals/Routes/Routes.svelte";
+    import RoutesMain from './visuals/Routes/Main.svelte'
     import NavBarLoggedIn from "./visuals/extras/NavBarLoggedIn.svelte";
-    import RoutePath from "./visuals/Routes/RoutePath.svelte";
 
     export let url = "";
 
@@ -18,9 +17,8 @@
 />
 
 <Router {url}>
-    <Routes />
-
+    
     <NavBarLoggedIn />
-
-    <RoutePath />
+    <RoutesMain/>
+    
 </Router>
