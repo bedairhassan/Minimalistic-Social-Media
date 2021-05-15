@@ -18,7 +18,7 @@
         console.log("trying to redirect to localhost:5000");
 
         // window.location.href = 'localhost:5000';
-        window.location.href = "posts";
+        // window.location.href = "posts";
     };
 
     const signup_signin = () => {

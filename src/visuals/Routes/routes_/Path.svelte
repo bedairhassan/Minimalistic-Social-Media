@@ -17,5 +17,6 @@
     <Route path={route.WHISPER}><Whisper /></Route>
     <Route path={route.FRIEND}><Friends /></Route>
     <Route path={route.POST}><Posts /></Route>
-    <Route path={route.LOGIN}><Login /></Route>
+    <!-- <Route path={route.LOGIN}><Login /></Route> -->
+    <Route path='/'><Login /></Route>
 </div>

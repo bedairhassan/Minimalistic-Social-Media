@@ -28,10 +28,10 @@
 
        
     </nav>
-{:else}
+<!-- {:else}
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand mb-0 h1">
             <Link to="login">| SignIn |</Link>
         </span>
-    </nav>
+    </nav> -->
 {/if}
