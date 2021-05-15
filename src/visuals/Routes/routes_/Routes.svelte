@@ -1,16 +1,21 @@
 <script>
-    // import Route from "./RouteSingle.svelte";
     import Routes_ from "../../../store/routeStore";
-    import Single from "./Single.svelte";
+    import { Link } from "svelte-routing";
+    import signedIn from "../../../store/signedIn";
 
     let routes;
     $: Routes_.subscribe((OBJ) => (routes = OBJ.render));
+
+    let currentSignedIn;
+    $: signedIn.subscribe((lastSignedIn) => (currentSignedIn = lastSignedIn));
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <ul class="navbar-nav">
+{#if currentSignedIn}
+    <nav class="navbar navbar-light bg-light">
         {#each routes as route}
-            <Single {route} />
+            <span class="navbar-brand mb-0 h1">
+                <Link to={route}>| {route} |</Link>
+            </span>
         {/each}
-    </ul>
-</nav>
+    </nav>
+{/if}

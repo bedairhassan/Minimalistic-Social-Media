@@ -96,11 +96,9 @@
     crossorigin="anonymous"
 />
 
-
-<h1>SignIn</h1>
-
 {#if !currentSignedIn}
     <div align="center">
+        <h1>SignIn</h1>
         <tr>
             <td>Username</td>
             <td
@@ -124,9 +122,10 @@
         </tr>
 
         <tr>
-            <td colspan="2"><button 
-                class="btn btn-primary"
-                on:click={fetch}>SignIn</button></td>
+            <td colspan="2"
+                ><button class="btn btn-primary" on:click={fetch}>SignIn</button
+                ></td
+            >
         </tr>
     </div>
 
@@ -139,12 +138,12 @@
         {/if}
     </div>
 {:else}
-    You are already signed in;
+    <div align="center"><h1>You are already signed in</h1></div>
 {/if}
 
-<div>
+<!-- <div>
     <h1>Developer View</h1>
     <CookiePage />
-</div>
+</div> -->
 
 <!-- TODO: if clicks button, show user created?!?!?!?  -->

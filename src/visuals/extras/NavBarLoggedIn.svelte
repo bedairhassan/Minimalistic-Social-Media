@@ -4,10 +4,10 @@
     import signedIn from "../../store/signedIn";
 
     const signout = () => {
-
-        signedIn.update(() => null)
+        signedIn.update(() => null);
         setTimeout(() => {
-            location.reload()
+            location.reload();
+            alert("Page restarting...");
         }, 500);
     };
 
@@ -20,25 +20,18 @@
 
 {#if currentSignedIn}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <h6>Signed in as {currentSignedIn}</h6>
-            </li>
-        </ul>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <button on:click={signout} class="btn btn-danger"
-                    >Sign Out</button
-                >
-            </li>
-        </ul>
+        <a class="navbar-brand" href="#">Signed in as {currentSignedIn}</a>
+        <a class="navbar-brand" href="/login"
+            ><button on:click={signout} class="btn btn-danger">Sign Out</button
+            ></a
+        >
+
+       
     </nav>
 {:else}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <Link to="login">| SignIn |</Link>
-            </li>
-        </ul>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">
+            <Link to="login">| SignIn |</Link>
+        </span>
     </nav>
 {/if}

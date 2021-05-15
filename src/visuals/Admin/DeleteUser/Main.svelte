@@ -18,7 +18,6 @@
     });
 </script>
 
-I can delete.
 
 <table class="table">
     <tr>
