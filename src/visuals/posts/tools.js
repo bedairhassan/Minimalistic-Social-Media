@@ -1,4 +1,6 @@
-const fetchIsFriends = (postOwner,currentSignedIn,people) => {
+import { fetchOther } from '../../JS/friends'
+
+const fetchIsFriends = (postOwner, currentSignedIn, people) => {
     if (postOwner === currentSignedIn) {
         // YOU
         return "you";
@@ -19,6 +21,8 @@ const fetchIsFriends = (postOwner,currentSignedIn,people) => {
     return "error";
 };
 
-module.exports={
-    fetchIsFriends
-}
+export default fetchIsFriends;
+
+// module.exports = {
+//     fetchIsFriends
+// }

@@ -1,5 +1,6 @@
 <script>
-    import { fetchIsFriends } from "./tools";
+    // import { fetchIsFriends } from "./tools";
+    import fetchIsFriends from './tools'
     import Post from "./post.svelte";
     import { db } from "../../JS/firebase";
     import signedIn from "../../store/signedIn";
